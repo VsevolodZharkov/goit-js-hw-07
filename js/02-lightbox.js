@@ -1,4 +1,4 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 const gallery = document.querySelector(".gallery");
@@ -16,14 +16,20 @@ const newGalleryIm = galleryItems
   })
   .join("");
 
-	gallery.insertAdjacentHTML("afterbegin", newGalleryIm);
+gallery.insertAdjacentHTML("afterbegin", newGalleryIm);
 
-	gallery.addEventListener("click", openModal);
+gallery.addEventListener("click", openModal);
 
-	function openModal(event) {
-		event.preventDefault();
-		if (event.target.tagName !== "IMG") {
-			return;
-		}
-		new SimpleLightbox('.gallery a ', {captionsData:	'alt' , captionClass:	'bottom', captionDelay:	'250' });
-	}
+function openModal(event) {
+	// без цього коду якой нижче код не працюе 
+  event.preventDefault();
+  if (event.target.tagName !== "IMG") {
+    return;
+  }
+	//
+  new SimpleLightbox(".gallery a ", {
+    captionsData: "alt",
+    captionClass: "bottom",
+    captionDelay: "250",
+  });
+}
