@@ -1,8 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
-
-
 const gallery = document.querySelector(".gallery");
 const body = document.querySelector("body");
 let instance;
@@ -29,22 +27,32 @@ const newGalleryIm = galleryItems
 gallery.insertAdjacentHTML("afterbegin", newGalleryIm);
 gallery.addEventListener("click", openModal);
 
-	function openModal(event) {
-    event.preventDefault();
+function openModal(event) {
+  event.preventDefault();
 
-    if (event.target.tagName !== "IMG") {
-      return;
-    }
-    const dataSourse = event.target.dataset.source;
-    instance = basicLightbox.create(`<img src="${dataSourse}" width="800" height="600">`)
-	  instance.show()
-		body.addEventListener("keydown", closeModal);
+  if (event.target.tagName !== "IMG") {
+    return;
   }
+  const dataSourse = event.target.dataset.source;
 
+  instance = basicLightbox.create(
+    `<img src="${dataSourse}" width="800" height="600">`,
+		onShow: (instance) => {
+			body.addEventListener("keydown", closeModal);
+		},
+		onClose: (instance) => {
+			body.removeEventListener("keydown", closeModal
+			);
+		},
+  );
 
-	function closeModal(event) {
-		if(event.code === "Escape"){
-			instance.close();
-		}
-		body.removeEventListener("keydown", closeModal);
-	}
+  instance.show();
+  
+}
+
+function closeModal(event) {
+  if (event.code === "Escape") {
+    instance.close();
+  }
+  
+}
